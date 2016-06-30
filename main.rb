@@ -14,50 +14,62 @@
 					- Gabriel Giménez, 		carnet 12-11006
 =end
 
-require "./trees"
+require_relative "trees.rb"
+require_relative "nodos.rb"
+require_relative "mod_bfs.rb"
+require_relative "mod_fold.rb"
 
 bt = ArbolBinario.new("Hola",ArbolBinario.new(22),ArbolBinario.new(222))
-puts "Valor = #{bt.get.get}"
+puts "Valor = #{bt.valor}"
 bt.set([1,2,3,"Hola",[1,2,3,["Hola", ["chao", 3], 2, []]]])
-bt.each {|x| puts x.get.get}
-puts "Valor nuevo = #{bt.get.get}"
+bt.each {|x| puts x.valor}
+puts "Valor nuevo = #{bt.valor}"
 puts ""
-rt = ArbolRosa.new(3, [ArbolRosa.new(7),
+rt = ArbolRosa.new(3, ArbolRosa.new(7),
 						ArbolRosa.new(-2,
-							[ArbolRosa.new(-16),
-							ArbolRosa.new(12)]),
+							ArbolRosa.new(-16),
+							ArbolRosa.new(12)),
 						ArbolRosa.new(3),
-						ArbolRosa.new(-1)])
+						ArbolRosa.new(-1))
 rt.set(100)
 print "--------------\n"
 puts "\nValor rt = #{rt.children}"
 print "#{bt.bfs {|x| puts x}}"
-rt.each {|x| puts x.get.get}
+rt.each {|x| puts x.valor}
 puts "#{rt.children}"
 print "\n"
 print "--------------\n"
-bt.bfs {|subtree| puts subtree.get.get}
+bt.bfs {|subtree| puts subtree.valor}
 print "#{bt.bfs {|node_value| puts node_value}}"
 rt.bfs {|x| puts x}
 print "\n"
-positive = lambda {|x| x.get.get > 0}
-puts "#{rt.recoger(&positive)}"
+positive = lambda {|x| x.valor > 0}
+puts "#{rt.recoger(positive)}"
 bt = ArbolBinario.new("Hello World!",
 		ArbolBinario.new(22),
 		ArbolBinario.new(222))
-puts bt.get.get
+puts bt.valor
 arr = [1,2,3,[1,2,3,["Hola", ["chao", 3], 2]]]
 bt = ArbolBinario.new(arr)
-bt.get.mutar(Singular)
-print bt.get.get
+bt.mutar(Oscuro)
+print bt.valor
 print "\n"
 br = ArbolBinario.new("Hola",ArbolBinario.new(22),ArbolBinario.new(222))
 rt = ArbolRosa.new(12345,
-		[ArbolRosa.new(2),
+		ArbolRosa.new(2),
 		 ArbolRosa.new(3,
-		 	[ArbolRosa.new(4, [ArbolRosa.new(5, [ArbolRosa.new(6, [ArbolRosa.new(7)])])]),
-			 ArbolRosa.new(8)]),
+		 	ArbolRosa.new(4, ArbolRosa.new(5, ArbolRosa.new(6, ArbolRosa.new(7)))),
+			 ArbolRosa.new(8)),
 		 ArbolRosa.new(9),
-		 ArbolRosa.new(10)])
-x = rt.fold(0) {|subtree, acc|  subtree.get.get + acc}
+		 ArbolRosa.new(10))
+x = rt.fold(0) {|subtree, acc|  subtree.valor + acc}
 puts x
+rt = ArbolRosa.new(12345,
+		ArbolRosa.new(2),
+		 ArbolRosa.new(3,
+		 	ArbolRosa.new(4, ArbolRosa.new(5, ArbolRosa.new(6, ArbolRosa.new(7)))),
+			 ArbolRosa.new(8)),
+		 ArbolRosa.new(9),
+		 ArbolRosa.new(10))
+
+rt.dfs {|x| puts "#{x.valor}"}

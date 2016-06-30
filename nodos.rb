@@ -239,10 +239,10 @@ class Array
 			- El resultado de mutar la instancia de la clase Array de forma oscura
 =end
 	def oscuro
-		obscure_arr = []
-		tmp_arr = self.sample(self.length / 2)
-		for i in 0...(self.length / 2)
-			obscure_arr.push(tmp_arr[i].oscuro)
+		obscure_arr = self
+		index_arr = (0...obscure_arr.length).to_a.shuffle.slice(0, obscure_arr.length / 2)
+		for i in 0...(index_arr.length)
+			obscure_arr[index_arr[i]] = (obscure_arr[index_arr[i]].oscuro)
 		end
 		return obscure_arr
 	end
@@ -276,14 +276,6 @@ class Nodo
 			- value: valor a evaluar para ser asignado
 =end
 	def set(value);	@node_value = value.set_value; end
-
-=begin
-		Método mutar: muta la variable de instancia @node_value
-
-		Parámetros:
-			- klass: clase en la cual se ejecutará el método de clase mutator
-=end
-	def mutar(klass); set(klass.mutator(self.get)); end
 end
 
 

@@ -27,7 +27,7 @@ module DFS
 		stack.push(self) unless self.nil?
 		while stack.size > 0
 			subtree = stack.shift
-			yield subtree.get.get
+			yield subtree
 			tmp_list = []
 			subtree.each {|child| tmp_list.push(child)}
 			stack = tmp_list + stack

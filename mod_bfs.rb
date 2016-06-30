@@ -35,13 +35,13 @@ module BFS
 =begin
 		Método recoger: dado un árbol y un bloque de código con una condición, se inserta el valor de los nodos que cumplan con la condición del bloque en una lista y se retorna dicha lista
 =end
-	def recoger(&block)
+	def recoger(block)
 		queue = []
 		accomplish_block = []
 		queue.push(self) unless self.nil?
 		while queue.size > 0
 			current = queue.shift
-			accomplish_block.push(current.get.get) if block.call(current)
+			accomplish_block.push(current.valor) if block.call(current)
 			current.each {|child| queue.push(child)} unless current.nil? 
 		end
 		return accomplish_block

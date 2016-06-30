@@ -55,12 +55,12 @@ class ArbolBinario
 	end
 
 =begin
-		Método get: retorna el valor de la variable de instancia @value del ArbolBinario
+		Método value: retorna el valor de la variable de instancia @value del ArbolBinario
 
 		Retorna:
 			- @value: variable de instancia de la clase ArbolBinario
 =end
-	def get; return @value; end	
+	def valor; return @value.get; end	
 	
 =begin
 		Método set: dado un valor, crea una instancia de la clase Nodo con dicho valor y asigna dicha instancia de la clase Nodo a la variable de instancia @value del ArbolBinario
@@ -81,6 +81,13 @@ class ArbolBinario
 		yield (@left) unless @left.nil?
 		yield (@right) unless @right.nil?
 	end
+
+=begin
+		Parámetros:
+			- klass: clase en la cual se ejecutará el método de clase mutator
+=end
+	def mutar(klass); set(klass.mutator(self.valor)); end
+
 end
 
 =begin
@@ -109,17 +116,18 @@ class ArbolRosa
 			- value: referencia a una instancia de la clase Nodo a almacenar en @value, por defecto nil
 			- children: referencia a un arreglo de instancias de la clase ArbolRosa a almacenarse en @children, por defecto nil
 =end
-	def initialize(value=nil, children=nil)
+	def initialize(value=nil, *children)
 		set(value)
-		@children = children
+		@children = []
+		children.each {|child| @children << child}
 	end
 =begin
-		Método get: retorna el valor de la variable de instancia @value del ArbolRosa
+		Método valor: retorna el valor de la variable de instancia @value del ArbolRosa
 
 		Retorna:
 			- @value: variable de instancia de la clase ArbolRosa
 =end
-	def get; return @value; end
+	def valor; return @value.get; end
 
 =begin
 		Método set: dado un valor, crea una instancia de la clase Nodo con dicho valor y asigna dicha instancia de la clase Nodo a la variable de instancia @value del ArbolRosa
@@ -145,4 +153,10 @@ class ArbolRosa
 			end
 		end
 	end
+
+=begin
+		Parámetros:
+			- klass: clase en la cual se ejecutará el método de clase mutator
+=end
+	def mutar(klass); set(klass.mutator(self.valor)); end
 end
