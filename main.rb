@@ -64,12 +64,11 @@ rt = ArbolRosa.new(12345,
 		 ArbolRosa.new(10))
 x = rt.fold(0) {|subtree, acc|  subtree.valor + acc}
 puts x
-rt = ArbolRosa.new(12345,
-		ArbolRosa.new(2),
-		 ArbolRosa.new(3,
-		 	ArbolRosa.new(4, ArbolRosa.new(5, ArbolRosa.new(6, ArbolRosa.new(7)))),
-			 ArbolRosa.new(8)),
-		 ArbolRosa.new(9),
-		 ArbolRosa.new(10))
-
 rt.dfs {|x| puts "#{x.valor}"}
+
+y = rt.recoger(lambda {|x| x.valor.odd?})
+z = rt.dfs {|x| puts x.valor if x.valor.odd?}
+
+rt.mutar(Oscuro)
+puts "----------"
+puts rt.valor
